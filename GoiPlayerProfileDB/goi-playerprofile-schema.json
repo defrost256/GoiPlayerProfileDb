@@ -1,0 +1,65 @@
+﻿{
+  "id": "goi-playerprofile-schema",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "GOI Player profile schema",
+
+  "type": "object",
+
+  "properties": {
+    "players": {
+      "type": "array",
+      "description": "The data of the player profiles",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The in-game name of the player"
+          },
+          "age": {
+            "type": "integer",
+            "description": "The age of the player"
+          },
+          "country": {
+            "type": "string",
+            "description": "The country the player lives in"
+          },
+          "startyear": {
+            "type": "integer",
+            "minimum": 2012,
+            "description": "The year the player started playing"
+          },
+          "clan": {
+            "type": "string",
+            "description": "The clan the player is currently part of"
+          },
+          "teams": {
+            "type": "string",
+            "description": "The SCS teams the player is currently affiliated with"
+          },
+          "role": {
+            "type": "integer",
+            "description": "The id of the primary role the player plays (0 : pilot, 1 : gunner, 2 : engineer)"
+          },
+          "ship": {
+            "type": "string",
+            "description": "The Favorite ship of the player"
+          },
+          "gun": {
+            "type": "string",
+            "description": "The favorite gun of the player"
+          },
+          "map": {
+            "type": "string",
+            "description": "The favorite map of the player"
+          },
+          "photopath": {
+            "type": "string",
+            "description": "The path to the player profile photo"
+          }
+        },
+        "required": [ "name", "startyear", "teams", "role", "ship", "gun" ]
+      }
+    }
+  }
+}
