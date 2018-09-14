@@ -20,6 +20,7 @@ namespace GoiPlayerProfileDB
 
         private Bitmap img;
         private string saveFile;
+        private string saveDataFile;
         private Config config;
         
 
@@ -48,6 +49,7 @@ namespace GoiPlayerProfileDB
                 string selfPath = Path.GetFullPath("./");
                 config.openPath = selfPath;
                 config.savePath = selfPath;
+                config.saveDataPath = selfPath;
             }
 
             InitMyComponent();
@@ -56,29 +58,13 @@ namespace GoiPlayerProfileDB
                        
         }
 
-        private void findFileBtn_Click(object sender, EventArgs e)
+        private void compileBtn_Click(object sender, EventArgs e)
         {
-            openFileDialog1.InitialDirectory = config.openPath;
-            DialogResult result = openFileDialog1.ShowDialog();
-            if(result == DialogResult.OK)
-            {
-                fileInputText.Text = openFileDialog1.FileName;
-                config.openPath = Path.GetDirectoryName(openFileDialog1.FileName);
-            }
-        }
 
-        private void fileInputText_TextChanged(object sender, EventArgs e)
-        {
-            img = new Bitmap(fileInputText.Text);
-            previewImageBox.Image = img;
         }
 
         private void scanBtn_Click(object sender, EventArgs e)
         {
-            if(saveFile.Length == 0)
-            {
-                return;
-            }
             scanBtn.Enabled = false;
 
             FileStream fs = new FileStream("./config.cfg", FileMode.OpenOrCreate, FileAccess.Write);
@@ -87,7 +73,11 @@ namespace GoiPlayerProfileDB
 
             OcrResult result = OcrManager.OcrImage(img);
 
-            SaveResults(result);
+            if (saveFile.Length > 0)
+            {
+                SaveResults(result);
+            }
+
             var parsed = OcrManager.ParseOcrResult(result);
 
             bestFitNames = new Dictionary<int, List<string>>();
@@ -117,42 +107,62 @@ namespace GoiPlayerProfileDB
             }
 
             scanned = true;
+            compileBtn.Enabled = true;
             scanBtn.Enabled = true;
         }
 
-        private void SaveResults(OcrResult result)
+        private void findFileBtn_Click(object sender, EventArgs e)
         {
-            FileStream fileStream = new FileStream(saveFile, FileMode.OpenOrCreate, FileAccess.Write);
-            StreamWriter stream = new StreamWriter(fileStream);
-
-            var pages = result.Pages;
-            foreach (var page in pages)
+            openFileDialog1.InitialDirectory = config.openPath;
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
             {
-                stream.WriteLine("Page\tPage No\tFont\tWidth\tHeight\tWord Count\n\t" + page.PageNumber + "\t" + page.FontName + " (" + page.FontSize + ")\t" + page.Width + "\t" + page.Height + "\t" + page.WordCount);
-                var pars = page.Paragraphs;
-                foreach (var par in pars)
-                {
-                    stream.WriteLine("\tParagraph\tNo.\tFont\tWidth\tHeight\tWord Count\tConfidence\n\t\t" + par.ParagraphNumber + "\t" + par.FontName + " (" + par.FontSize + ")\t" + par.Width + "\t" + par.Height + "\t" + par.WordCount + "\t" + par.Confidence + "\n\t\tLine\tLine No.\tWidth\tHeight\tWord Count\tConfidence\tText");
-                    var lines = par.Lines;
-                    foreach (var line in lines)
-                    {
-                        stream.WriteLine("\t\t\t" + line.LineNumber + "\t" + line.Width + "\t" + line.Height + "\t" + line.WordCount + "\t" + line.Confidence + "\t" + line.Text);
-                    }
-                }
+                fileInputText.Text = openFileDialog1.FileName;
+                config.openPath = Path.GetDirectoryName(openFileDialog1.FileName);
             }
-            stream.Flush();
-            stream.Close();
+        }
+
+        private void fileInputText_TextChanged(object sender, EventArgs e)
+        {
+            img = new Bitmap(fileInputText.Text);
+            compileBtn.Enabled = false;
+            scanBtn.Enabled = true;
+            previewImageBox.Image = img;
+        }
+
+        private void outputFileTextBox_TextChanged(object sender, EventArgs e)
+        {
+            saveFile = outputFileTextBox.Text;
         }
 
         private void saveFileBtn_Click(object sender, EventArgs e)
         {
             saveFileDialog1.InitialDirectory = config.savePath;
+            saveFileDialog1.DefaultExt = "log";
             var result = saveFileDialog1.ShowDialog();
             if(result == DialogResult.OK)
             {
-                saveFile = saveFileDialog1.FileName;
-                outputFileTextBox.Text = saveFileDialog1.FileName;
-                config.savePath = Path.GetDirectoryName(saveFile);
+                var file = saveFileDialog1.FileName;
+                config.savePath = Path.GetDirectoryName(file);
+                outputFileTextBox.Text = file;
+            }
+        }
+
+        private void dataOutputTextbox_TextChanged(object sender, EventArgs e)
+        {
+            saveDataFile = dataOutputTextbox.Text;
+        }
+
+        private void saveDataBtn_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.InitialDirectory = config.saveDataPath;
+            saveFileDialog1.DefaultExt = "dat";
+            var result = saveFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                var file = saveFileDialog1.FileName;
+                config.saveDataPath= Path.GetDirectoryName(file);
+                dataOutputTextbox.Text = file;
             }
         }
 
@@ -214,6 +224,30 @@ namespace GoiPlayerProfileDB
                 NameTextBoxes[btnIdx].Text = dialog.SelectedName;
                 NameCorrectPanels[btnIdx].Hide();
             }
+        }
+
+        private void SaveResults(OcrResult result)
+        {
+            FileStream fileStream = new FileStream(saveFile, FileMode.OpenOrCreate, FileAccess.Write);
+            StreamWriter stream = new StreamWriter(fileStream);
+
+            var pages = result.Pages;
+            foreach (var page in pages)
+            {
+                stream.WriteLine("Page\tPage No\tFont\tWidth\tHeight\tWord Count\n\t" + page.PageNumber + "\t" + page.FontName + " (" + page.FontSize + ")\t" + page.Width + "\t" + page.Height + "\t" + page.WordCount);
+                var pars = page.Paragraphs;
+                foreach (var par in pars)
+                {
+                    stream.WriteLine("\tParagraph\tNo.\tFont\tWidth\tHeight\tWord Count\tConfidence\n\t\t" + par.ParagraphNumber + "\t" + par.FontName + " (" + par.FontSize + ")\t" + par.Width + "\t" + par.Height + "\t" + par.WordCount + "\t" + par.Confidence + "\n\t\tLine\tLine No.\tWidth\tHeight\tWord Count\tConfidence\tText");
+                    var lines = par.Lines;
+                    foreach (var line in lines)
+                    {
+                        stream.WriteLine("\t\t\t" + line.LineNumber + "\t" + line.Width + "\t" + line.Height + "\t" + line.WordCount + "\t" + line.Confidence + "\t" + line.Text);
+                    }
+                }
+            }
+            stream.Flush();
+            stream.Close();
         }
 
         private void InitMyComponent()

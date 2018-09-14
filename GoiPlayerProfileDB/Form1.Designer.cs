@@ -57,6 +57,12 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel8 = new System.Windows.Forms.FlowLayoutPanel();
+            this.dataOutputTextbox = new System.Windows.Forms.TextBox();
+            this.saveDataBtn = new System.Windows.Forms.Button();
+            this.compileBtn = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.scanTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.previewImageBox)).BeginInit();
@@ -74,16 +80,18 @@
             this.tabPage2.SuspendLayout();
             this.flowLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            this.flowLayoutPanel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.scanTab);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1040, 677);
+            this.tabControl1.Size = new System.Drawing.Size(1119, 695);
             this.tabControl1.TabIndex = 0;
             // 
             // scanTab
@@ -93,7 +101,7 @@
             this.scanTab.Location = new System.Drawing.Point(4, 22);
             this.scanTab.Name = "scanTab";
             this.scanTab.Padding = new System.Windows.Forms.Padding(3);
-            this.scanTab.Size = new System.Drawing.Size(1032, 651);
+            this.scanTab.Size = new System.Drawing.Size(1111, 669);
             this.scanTab.TabIndex = 0;
             this.scanTab.Text = "Scan";
             this.scanTab.UseVisualStyleBackColor = true;
@@ -103,7 +111,7 @@
             this.previewImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.previewImageBox.Location = new System.Drawing.Point(304, 3);
             this.previewImageBox.Name = "previewImageBox";
-            this.previewImageBox.Size = new System.Drawing.Size(725, 645);
+            this.previewImageBox.Size = new System.Drawing.Size(804, 663);
             this.previewImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.previewImageBox.TabIndex = 2;
             this.previewImageBox.TabStop = false;
@@ -118,7 +126,7 @@
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(301, 645);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(301, 663);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // groupBox1
@@ -127,7 +135,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Right;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(298, 136);
+            this.groupBox1.Size = new System.Drawing.Size(298, 115);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Image";
@@ -140,7 +148,7 @@
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(292, 117);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(292, 96);
             this.flowLayoutPanel2.TabIndex = 0;
             // 
             // label1
@@ -188,9 +196,9 @@
             // 
             this.groupBox2.Controls.Add(this.flowLayoutPanel3);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox2.Location = new System.Drawing.Point(3, 145);
+            this.groupBox2.Location = new System.Drawing.Point(3, 124);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(298, 70);
+            this.groupBox2.Size = new System.Drawing.Size(298, 110);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Output";
@@ -199,11 +207,13 @@
             // 
             this.flowLayoutPanel3.Controls.Add(this.label2);
             this.flowLayoutPanel3.Controls.Add(this.flowLayoutPanel7);
+            this.flowLayoutPanel3.Controls.Add(this.label3);
+            this.flowLayoutPanel3.Controls.Add(this.flowLayoutPanel8);
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(292, 51);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(292, 91);
             this.flowLayoutPanel3.TabIndex = 0;
             // 
             // label2
@@ -213,7 +223,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Output File";
+            this.label2.Text = "Log output";
             // 
             // flowLayoutPanel7
             // 
@@ -231,6 +241,7 @@
             this.outputFileTextBox.Name = "outputFileTextBox";
             this.outputFileTextBox.Size = new System.Drawing.Size(252, 20);
             this.outputFileTextBox.TabIndex = 0;
+            this.outputFileTextBox.TextChanged += new System.EventHandler(this.outputFileTextBox_TextChanged);
             // 
             // saveFileBtn
             // 
@@ -250,7 +261,7 @@
             // 
             this.groupBox3.Controls.Add(this.flowLayoutPanel6);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox3.Location = new System.Drawing.Point(3, 221);
+            this.groupBox3.Location = new System.Drawing.Point(3, 240);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(298, 380);
             this.groupBox3.TabIndex = 3;
@@ -323,13 +334,15 @@
             // flowLayoutPanel5
             // 
             this.flowLayoutPanel5.Controls.Add(this.scanBtn);
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 607);
+            this.flowLayoutPanel5.Controls.Add(this.compileBtn);
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 626);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
             this.flowLayoutPanel5.Size = new System.Drawing.Size(295, 29);
             this.flowLayoutPanel5.TabIndex = 2;
             // 
             // scanBtn
             // 
+            this.scanBtn.Enabled = false;
             this.scanBtn.Location = new System.Drawing.Point(3, 3);
             this.scanBtn.Name = "scanBtn";
             this.scanBtn.Size = new System.Drawing.Size(75, 23);
@@ -346,11 +359,74 @@
             // 
             this.saveFileDialog1.DefaultExt = "log";
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1032, 651);
+            this.tabPage3.TabIndex = 1;
+            this.tabPage3.Text = "Database";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 47);
+            this.label3.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(63, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Data output";
+            // 
+            // flowLayoutPanel8
+            // 
+            this.flowLayoutPanel8.Controls.Add(this.dataOutputTextbox);
+            this.flowLayoutPanel8.Controls.Add(this.saveDataBtn);
+            this.flowLayoutPanel8.Location = new System.Drawing.Point(3, 63);
+            this.flowLayoutPanel8.Name = "flowLayoutPanel8";
+            this.flowLayoutPanel8.Size = new System.Drawing.Size(286, 25);
+            this.flowLayoutPanel8.TabIndex = 6;
+            // 
+            // dataOutputTextbox
+            // 
+            this.dataOutputTextbox.Location = new System.Drawing.Point(0, 3);
+            this.dataOutputTextbox.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.dataOutputTextbox.Name = "dataOutputTextbox";
+            this.dataOutputTextbox.Size = new System.Drawing.Size(252, 20);
+            this.dataOutputTextbox.TabIndex = 0;
+            this.dataOutputTextbox.TextChanged += new System.EventHandler(this.dataOutputTextbox_TextChanged);
+            // 
+            // saveDataBtn
+            // 
+            this.saveDataBtn.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.saveDataBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveDataBtn.Location = new System.Drawing.Point(252, 3);
+            this.saveDataBtn.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.saveDataBtn.Name = "saveDataBtn";
+            this.saveDataBtn.Size = new System.Drawing.Size(30, 20);
+            this.saveDataBtn.TabIndex = 1;
+            this.saveDataBtn.Text = "...";
+            this.saveDataBtn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.saveDataBtn.UseVisualStyleBackColor = true;
+            this.saveDataBtn.Click += new System.EventHandler(this.saveDataBtn_Click);
+            // 
+            // compileBtn
+            // 
+            this.compileBtn.Enabled = false;
+            this.compileBtn.Location = new System.Drawing.Point(84, 3);
+            this.compileBtn.Name = "compileBtn";
+            this.compileBtn.Size = new System.Drawing.Size(75, 23);
+            this.compileBtn.TabIndex = 1;
+            this.compileBtn.Text = "Compile";
+            this.compileBtn.UseVisualStyleBackColor = true;
+            this.compileBtn.Click += new System.EventHandler(this.compileBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1040, 677);
+            this.ClientSize = new System.Drawing.Size(1119, 695);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -375,6 +451,8 @@
             this.tabPage2.ResumeLayout(false);
             this.flowLayoutPanel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            this.flowLayoutPanel8.ResumeLayout(false);
+            this.flowLayoutPanel8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -409,6 +487,12 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.FlowLayoutPanel blueTeamFlow;
         private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel8;
+        private System.Windows.Forms.TextBox dataOutputTextbox;
+        private System.Windows.Forms.Button saveDataBtn;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Button compileBtn;
     }
 }
 

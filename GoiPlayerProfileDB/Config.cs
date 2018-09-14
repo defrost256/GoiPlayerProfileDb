@@ -12,6 +12,7 @@ namespace GoiPlayerProfileDB
 
         public string openPath;
         public string savePath;
+        public string saveDataPath;
 
     }
 }
